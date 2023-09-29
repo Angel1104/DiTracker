@@ -1,4 +1,4 @@
-package com.dh.ditracker.model.domain.security;
+package com.dh.ditracker.model.domain;
 
 import lombok.Data;
 
@@ -21,8 +21,14 @@ public class UserEntity {
     private String name;
     @Column(name = "lastName_")
     private String lastName;
-    @Column(name = "avatarId_")
-    private Integer avatarId;
     @Column(name = "email_")
     private String email;
+
+    @JoinColumn(name = "avatarId_")
+    @OneToOne(fetch = FetchType.LAZY)
+    private AvatarEntity avatarEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = RoleEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id_")
+    private RoleEntity roleEntity;
 }
