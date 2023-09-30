@@ -3,6 +3,7 @@ package com.dh.ditracker.model.domain.tracker;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -11,16 +12,30 @@ import java.util.List;
 public class ActivityRegistryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_", nullable = false)
-    private Integer id;
-    @Column(name = "name_")
-    private String registrationId;
-    @Column(name = "description_")
-    private String name;
-    @Column(name = "manager_")
-    private Boolean status;
-    @Column(name = "isDeleted_")
+    @Column(name = "id_activity_registry_", nullable = false)
+    private Integer idActivityRegistry;
 
-    @OneToMany(mappedBy = "ActivityRegistryEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ActivityEntity.class)
-    private List<ActivityEntity> locationEntityList;
+    @ManyToOne
+    @JoinColumn(name = "id_project_", insertable = false, updatable = false)
+    private ProjectEntity projectId;
+
+    @ManyToOne
+    @JoinColumn(name = "id_team_", insertable = false, updatable = false)
+    private TeamEntity team;
+
+    @ManyToOne
+    @JoinColumn(name = "id_activity_", insertable = false, updatable = false)
+    private ActivityEntity activity;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tracker_user_", insertable = false, updatable = false)
+    private TrackerUserEntity user;
+
+    @Column(name = "initial_date_")
+    private Timestamp initialDate;
+
+    @Column(name = "final_date_")
+    private Timestamp finalDate;
+
+
 }

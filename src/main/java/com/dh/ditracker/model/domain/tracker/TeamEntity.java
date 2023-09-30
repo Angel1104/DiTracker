@@ -10,12 +10,29 @@ import java.util.List;
 @Entity
 @Table(name = "team_")
 public class TeamEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_", nullable = false)
-    private Integer id;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamEntity")
-    private List<TrackerUserEntity> members;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamEntity")
+    @Column(name = "id_team_", nullable = false)
+    private Integer idTeam;
+
+    @Column(name = "name_", nullable = false)
+    private String name;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tracker_user_")
     private TrackerUserEntity lead;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamUsers")
+    private List<TrackerUserEntity> members;
+
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "id_project_", insertable = false, updatable = false)
+    private ProjectEntity projectId;
+
+    @OneToMany(mappedBy = "team")
+    private List<ActivityRegistryEntity> activityRegistryEntitiesList;
 }
