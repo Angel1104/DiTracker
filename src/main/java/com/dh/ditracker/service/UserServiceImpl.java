@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserResponse updateUser(UserResponse userResponse){
-        Optional<UserEntity> userEntity = userRepository.findByRegistrarionId(userResponse.getUserId());
+        Optional<UserEntity> userEntity = userRepository.findById(userResponse.getUserId());
         if(userEntity.isPresent()){
             UserEntity preEntity = userEntity.get();
             this.userMapper.
