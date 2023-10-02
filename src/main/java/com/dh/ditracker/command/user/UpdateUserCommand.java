@@ -1,5 +1,8 @@
-package com.dh.ditracker.command.role;
+package com.dh.ditracker.command.user;
 
+import com.dh.ditracker.api.request.user.UpdateUserRequest;
+import com.dh.ditracker.api.response.user.UpdateUserResponse;
+import com.dh.ditracker.api.response.user.UserResponse;
 import com.dh.ditracker.command.AbstractCommand;
 import com.dh.ditracker.model.mapper.UserMapper;
 import com.dh.ditracker.service.UserService;
@@ -25,7 +28,7 @@ public final class UpdateUserCommand extends AbstractCommand {
     private final UserMapper userMapper;
 
     @Autowired
-    public UpdateUserCommand (UserService userService, UserMapper userMapper){
+    public UpdateUserCommand (UserMapper userMapper, UserService userService){
         this.userService = userService;
         this.userMapper = userMapper;
     }
@@ -33,6 +36,18 @@ public final class UpdateUserCommand extends AbstractCommand {
     @Override
     protected void onExecute(){
         log.info("UpdateUserCommand - Execute");
-        //UserResponse
+        UserResponse userResponse = userMapper.mapperToUserResponseFrom(this.input);
+        this.userService.updateUser(userResponse);
+        this.output = this.userMapper.mapperToUpdateUserResponseFrom(userResponse);
+    }
+
+    @Override
+    public void postExecute(){
+        log.info("UpdateUserCommand - PostExecute");
+    }
+
+    @Override
+    public void preExecute(){
+        log.info("UpdateUserCommand - PreExecute");
     }
 }
