@@ -2,20 +2,25 @@ package com.dh.ditracker.command.user;
 
 import com.dh.ditracker.api.request.user.CreateUserRequest;
 import com.dh.ditracker.api.response.user.CreateUserResponse;
+import com.dh.ditracker.api.response.user.UserResponse;
 import com.dh.ditracker.command.AbstractCommand;
+import com.dh.ditracker.model.mapper.UserMapper;
+import com.dh.ditracker.service.UserService;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.mapstruct.Mapper;
+
 @Slf4j
 @Service
 public final class CreateUserCommand extends AbstractCommand {
     @Setter
     private CreateUserRequest input;
     @Getter
-    private CreateUserRequest output;
+    private CreateUserResponse output;
 
     private final UserService userService;
     private final UserMapper userMapper;
@@ -25,6 +30,7 @@ public final class CreateUserCommand extends AbstractCommand {
         this.userService = userService;
         this.userMapper = userMapper;
     }
+
     @Override
     protected void onExecute() {
         log.info("CreateUserCommand - Execute");

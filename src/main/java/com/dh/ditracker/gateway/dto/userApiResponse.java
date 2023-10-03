@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class userApiResponse extends ApiResponse{
-
-    private Integer id;
-    private String name;
+public class UserApiResponse extends ApiResponse{
+    private Integer userId;
+    private String userName;
     private String password;
+    private String name;
+    private String lastName;
+    private String email;
 }
